@@ -1,6 +1,21 @@
 #include <iostream>
 using namespace std;
 
+int getMinInorder(int* numbers, int index1, int index2)
+{
+    int min_value = numbers[index1];
+    for(int i = index1 + 1; i <= index2; i++)
+    {
+        if(min_value > numbers[i])
+        {
+            min_value = numbers[i];
+        }
+    }
+
+    return min_value;
+
+}
+
 int getMin(int* numbers, int length)
 {
     if(numbers == NULL || length <= 0)
@@ -21,6 +36,12 @@ int getMin(int* numbers, int length)
         }
 
         middle = (index2 + index1) / 2;
+
+        if(numbers[middle] == numbers[index1] && numbers[index1] == numbers[index2])
+        {
+            return getMinInorder(numbers, index1, index2);
+        }
+
         if(numbers[middle] > numbers[index1])
         {
             index1 = middle;
@@ -35,8 +56,10 @@ int getMin(int* numbers, int length)
 }
 
 
+
+
 int main()
 {
-    int numbers[] = {3,4,5,2};
-    cout << getMin(numbers, 4) << "\n";
+    int numbers[] = {1, 0, 1, 1, 1};
+    cout << getMin(numbers, 5) << "\n";
 }
