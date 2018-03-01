@@ -4,7 +4,7 @@ struct ListNode
 {
     int value;
     ListNode* next;
-}
+};
 
 //Approach 1: non-recursion
 
