@@ -7,6 +7,14 @@ struct BinaryTreeNode
     BinaryTreeNode* right;
 };
 
+bool Equal(double n1, double n2)
+{
+    if((n1 - n2 > -0.0000001) && (n1 - n2 < 0.0000001))
+        return true;
+
+    return false;
+}
+
 bool hasSubtree(BinaryTreeNode* root1, BinaryTreeNode* root2)
 {
     bool result = false;
