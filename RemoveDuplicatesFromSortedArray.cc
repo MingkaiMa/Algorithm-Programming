@@ -4,7 +4,7 @@
 using namespace std;
 
 
-
+//Solution 1: my own
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
@@ -34,43 +34,24 @@ public:
     }
 };
 
-int main()
-{
-    vector<int> L = {1, 1, 2, 2, 3};
 
-    for(int i = 0; i < L.size(); i++)
-    {
-        cout << L[i] << ", ";
-    }
-    cout << "\n";
+//Solution 2:
+class Solution2 {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if(nums.size() == 0 || nums.size() == 1)
+            return nums.size();
 
-
-    int curr = L[0];
-
-    int i = 1;
-    while(i < L.size())
-    {
-        if(curr != L[i])
+        int i = 0;
+        for(int j = 1; j < nums.size(); j++)
         {
-            curr = L[i];
-            ++i;
-            continue;
+            if(nums[i] != nums[j])
+            {
+                i++;
+                nums[i] = nums[j];
+            }
         }
 
-        if(curr == L[i])
-        {
-            L.erase(L.begin() + i);
-        }
+        return i + 1;
     }
-
-
-    int j = 0;
-    for(; j < L.size(); j++)
-    {
-        cout << L[j] << ", ";
-    }
-    cout << "\n";
-    cout << j << "\n";
-    cout << "\n";
-
-}
+};
