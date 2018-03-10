@@ -27,7 +27,7 @@ public:
                 if(p[j - 1] == '*')
                     lookup[i][j] = lookup[i][j - 1] || lookup[i - 1][j];
 
-                else if(p[j - 1] == '?' || s[i - 1] == p[i - 1])
+                else if(p[j - 1] == '?' || s[i - 1] == p[j - 1])
                     lookup[i][j] = lookup[i - 1][j - 1];
 
                 else lookup[i][j] = false;
