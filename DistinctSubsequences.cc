@@ -4,6 +4,10 @@ public:
     
     void numDistinctCore(string s, string t, int sStart, int tStart, int& count)
     {
+        
+        if((s.size() - sStart) < (t.size() - tStart))
+            return;
+        
         if(tStart == t.size())
         {
             count++;
