@@ -1,103 +1,38 @@
 class Solution {
 public:
     
-    bool isOneDiff(string word1, string word2)
-    {
-        if(word1.size() != word2.size())
-            return false;
-        
-        int count = 0;
-        int i = 0, j = 0;
-        
-        while(i < word1.size() && j < word2.size())
-        {
-            if(word1[i] != word2[j])
-                count++;
-            i++;
-            j++;
-        }
-        
-        return count == 1;
-        
-    }
-    
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
-        
-        
-        //corner case: don't forget
-        
-        //
-        
         vector<vector<string>> res;
-        
-        if(wordList.size() <= 0 || beginWord.size() == 0 || endWord.size() == 0)
-        {
-            return {};
-        }
-        
-        stack<vector<string>> Stack;
-        vector<string> L = {beginWord};
-        Stack.push(L);
-        
-        while(!Stack.empty())
-        {
-        
-            
-            vector<string> currList = Stack.top();
-            Stack.pop();
-            if(currList.back() == endWord)
-            {
-                res.push_back(currList);
-                continue;
-            }            
-            
-            
-            string lastWord = currList.back();
-            //cout << "Lastword: " << lastWord << "\n";
-            
-
-                
-            for(auto s: wordList)
-            {
-
-                if(isOneDiff(s, lastWord))
-                {
-                    if(find(currList.begin(), currList.end(), s) != currList.end())
-                    {
-                        continue;
-                    }
-                    //cout << "here\n s: " << s << "\n";
-                    vector<string> tempList = currList;
-                    tempList.push_back(s);
-                    Stack.push(tempList);
-                    // for(int i = 0; i < tempList.size(); i++)
-                    //     cout << tempList[i] << ", ";
-                    // cout << "\n";
+        unordered_set<string> dict(wordList.begin(), wordList.end());
+        vector<string> p{beginWord};
+        queue<vector<string>> paths;
+        paths.push(p);
+        int level = 1, minLevel = INT_MAX;
+        unordered_set<string> words;
+        while (!paths.empty()) {
+            auto t = paths.front(); paths.pop();
+            if (t.size() > level) {
+                for (string w : words) dict.erase(w);
+                words.clear();
+                level = t.size();
+                if (level > minLevel) break;
+            }
+            string last = t.back();
+            for (int i = 0; i < last.size(); ++i) {
+                string newLast = last;
+                for (char ch = 'a'; ch <= 'z'; ++ch) {
+                    newLast[i] = ch;
+                    if (!dict.count(newLast)) continue;
+                    words.insert(newLast);
+                    vector<string> nextPath = t;
+                    nextPath.push_back(newLast);
+                    if (newLast == endWord) {
+                        res.push_back(nextPath);
+                        minLevel = level;
+                    } else paths.push(nextPath);
                 }
             }
-                        
         }
-
-        if(res.size() == 0)
-            return res;
-        
-        int minLength = res[0].size();
-        vector<vector<string>>  rres;
-        
-        for(auto sv: res)
-        {
-            if(sv.size() < minLength)
-                minLength = sv.size();
-        }
-        
-        for(auto sv: res)
-        {
-            if(sv.size() == minLength)
-                rres.push_back(sv);
-        }
-        
-        
-        
-        return rres;
+        return res;
     }
 };
