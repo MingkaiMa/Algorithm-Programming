@@ -7,6 +7,9 @@
  *     Point(int a, int b) : x(a), y(b) {}
  * };
  */
+
+ //http://www.cnblogs.com/grandyang/p/4579693.html
+ 
 class Solution {
 public:
     int maxPoints(vector<Point>& points) {
